@@ -74,6 +74,7 @@ commands:
 - can-see
   -  HOME = only home directory
   -  CWD = only current working directory
+  -  NOTHING = can't see any host directories
   -  -X = only X directories up from current working directory (-0 would be the same as CWD, -1 would be one directory up from CWD, ...)
 
 - also-see
