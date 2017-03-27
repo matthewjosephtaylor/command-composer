@@ -30,7 +30,7 @@ public class YamlParser {
 							Boolean.class).orElse(CompositionGroup.DEFAULT_PERSIST));
 
 			final CommandType commandType = Optional.ofNullable(commandLine.executables).orElse(false)
-					? CommandType.EXECUTABLE : getOptionalValueFromMap(topObject, CompositionGroup.PERSIST,
+					? CommandType.EXECUTABLE : getOptionalValueFromMap(topObject, CompositionGroup.COMMAND_TYPE,
 							CommandType.class).orElse(CompositionGroup.DEFAULT_COMMAND_TYPE);
 
 			final List<CommandMapping> commandMappings = parseCommands(

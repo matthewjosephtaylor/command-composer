@@ -1,0 +1,13 @@
+name: command-composer-compiler
+command-type: EXECUTABLE
+
+commands:
+
+  javac:
+    image: "openjdk:8"
+
+  java:
+    image: "openjdk:8"
+
+  mvn:
+    image: "maven:3.3.9-jdk-8-alpine"

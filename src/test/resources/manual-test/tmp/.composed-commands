@@ -1,0 +1,1 @@
+alias java9='docker run -it --rm -w="${PWD}" -e "HOME=${HOME}" -v "${PWD}:${PWD}"  "openjdk:9" java'

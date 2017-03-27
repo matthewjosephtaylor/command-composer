@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+docker run -it --rm -w="${PWD}" -e "HOME=${HOME}" -v "${PWD}:${PWD}"  "maven:3.3.9-jdk-8-alpine" mvn $@

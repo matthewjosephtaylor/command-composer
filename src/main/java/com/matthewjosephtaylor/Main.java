@@ -60,7 +60,7 @@ public class Main {
 		if (compositionGroup.commandType.equals(CommandType.EXECUTABLE)) {
 			final File outputDirectory = new File(compositionGroup.executablesDir);
 			stdout(verbose, "writing out executables to directory: " + outputDirectory.getAbsolutePath());
-			if (!outputDirectory.mkdirs()) {
+			if (!outputDirectory.exists() && !outputDirectory.mkdirs()) {
 				throw new RuntimeException("Problem creating output directory: " + outputDirectory.getAbsolutePath());
 			}
 			compositionGroup.commands.forEach(c -> c.writeExecutable(outputDirectory));

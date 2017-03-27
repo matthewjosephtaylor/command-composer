@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+docker run -it --rm -w="${PWD}" -e "HOME=${HOME}" -v "${PWD}:${PWD}"  "openjdk:8" javac $@

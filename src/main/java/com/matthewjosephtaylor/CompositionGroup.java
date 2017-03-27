@@ -18,7 +18,7 @@ public class CompositionGroup {
 	public final String name;
 
 	public static final String EXECUTABLES_DIR = "executables-dir";
-	public static final String DEFAULT_EXECUTABLES_DIR = ".";
+	public static final String DEFAULT_EXECUTABLES_DIR = "./";
 	public final String executablesDir;
 
 	public static final String COMMAND_TYPE = "command-type";
