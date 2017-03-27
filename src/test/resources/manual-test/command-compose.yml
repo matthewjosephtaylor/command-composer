@@ -1,0 +1,13 @@
+name: ls-test
+
+commands:
+
+  ls2:
+    can-see: "-2"
+    image: "alpine"
+    container-command: "ls"
+
+  ls4:
+    can-see: "-4"
+    image: "alpine"
+    container-command: "ls"

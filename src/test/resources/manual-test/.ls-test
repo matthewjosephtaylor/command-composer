@@ -1,0 +1,2 @@
+alias ls2='docker run -it --rm -w="${PWD}" -e "HOME=${HOME}" -v "$(cd ../../;pwd):$(cd ../../;pwd)"  "alpine" ls'
+alias ls4='docker run -it --rm -w="${PWD}" -e "HOME=${HOME}" -v "$(cd ../../../../;pwd):$(cd ../../../../;pwd)"  "alpine" ls'

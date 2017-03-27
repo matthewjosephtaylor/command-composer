@@ -1,0 +1,15 @@
+commands:
+
+  java9:
+    can-see: "-2"
+    also-see:
+      - "/var/data/pgdata"
+      - "/var/output/logs"
+    hot: yes
+    stateful: no
+    image: "java:9"
+    container-command: "java"
+
+  yarn:
+    can-see: HOME
+    image: "my-special-yarn-image:latest"

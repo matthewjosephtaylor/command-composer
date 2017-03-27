@@ -1,0 +1,3 @@
+#!/bin/bash
+mvn validate install assembly:single
+docker build -t command-composer .
