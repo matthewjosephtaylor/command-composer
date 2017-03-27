@@ -15,7 +15,7 @@ from a command perspective.
 
 This tool allows one to:
 -  Pluck out a wide variety of tools from the universe of anything that runs on some variant of linux. Use them and then abandon them, with out the hassle of having to go through a tedious install/uninstall cycle, and maybe messing up something on your host OS.
-- Isolate commands to _only_ see directory structures they need to. Safely use software and not care too much about where it came from, or what crazy stuff it is junking up your home folder with, because you can now _choose_ easily and exactly what folders the command has access to.
+- Isolate commands to see _only_ the directory structures they need to. Safely use software and not care too much about where it came from, or what crazy stuff it is junking up your home folder with, because you can now _choose_ easily and exactly what folders the command has access to.
 - Create a specific grouping of commands (a _composition_ if one will :) ) that interact with one another and can easily be saved for later or shared with others.
 
 ## Installation
@@ -31,6 +31,8 @@ alias command-composer='docker run -it --rm -w="${PWD}" -e "HOME=${HOME}" -v "${
 ```
 
 ## Examples
+Creating a 'dot file' that can be sourced
+
 `command-composer -p java9:java openjdk:9; . .composed-commands`
 
 This will create a command `java9` that can be used like:
@@ -53,17 +55,29 @@ OpenJDK Runtime Environment (build 9-Debian+0-9b161-1)
 OpenJDK 64-Bit Server VM (build 9-Debian+0-9b161-1, mixed mode)
 ```
 
+Setting up aliases without a 'dot file'
+
+NOTE: This doesn't work with bash 3.x (which is what, for instance, macosx is stuck on due to License issues (grr...))
+
+`source <(command-composer -f ./ancient-ruby-env.yml)`
+
+
 Example command-compose.yml
 
 ```
+name: "example"
+command-type: ALIAS
+executables-dir: "/home/alice/composed-environments/example/bin"
+persist: false
+
 commands:
   java9:
     can-see: "-2"
     also-see:
       - "/var/data/pgdata"
       - "/var/output/logs"
-    hot: yes
-    stateful: no
+    hot: true
+    stateful: false
     image: "java:9"
     container-command: "java"
 
@@ -71,16 +85,35 @@ commands:
     can-see: HOME
     image: "my-special-yarn-image:latest"
 ```
+By default a file named 'command-compose.yml' in the current directory is read when `command-composer` is called with no arguments.
+
+Pretty much everything in the yaml file is optional with reasonable defaults.
+
+## Yaml Documentation
+
 - can-see
   -  HOME = only home directory
-  -  CWD = only current working directory
+  -  CWD = (default) only current working directory
   -  NOTHING = can't see any host directories
   -  -X = only X directories up from current working directory (-0 would be the same as CWD, -1 would be one directory up from CWD, ...)
 
 - also-see
   - absolute path to a directory outside of the user's home directory (careful, if you use something like `/` or `/usr/bin` things will likely break)
 
-## Usage
+- persist
+  - save an environment file that can be sourced into a shell via `source .name` (default name is `.composed-commands`)
+
+- executables-dir
+  - directory to save executable commands that link to docker commands (as apposed to shell aliases) that can be put in a PATH or executed outside of a shell environment.
+
+- command-type
+  - ALIAS = environment to use shell aliases
+  - EXECUTABLE = environment to use executable commands
+- name
+  - name of the command group environment (used in the name of the environment file to be sourced)
+
+
+## Commandline Usage
 ```
 Usage: command-composer [options] command-name[:container-command-name] [image-name] [can-see] [add-dir ...]
   Options:
@@ -134,6 +167,8 @@ March 26 2017 : First upload to github after a weekend of coding.  There will be
 ## License
 
 The MIT License (MIT)
+
+Copyright 2017 Matt Taylor
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
