@@ -19,13 +19,14 @@ This tool allows one to:
 - Create a specific grouping of commands (a _composition_ if one will :) ) that interact with one another and can easily be saved for later or shared with others.
 
 ## Installation
-Assumes a unix-like environment with a reasonably modern version of docker installed.
+Assumes a unix-like environment with a reasonably modern version of docker installed...and that is it!
 
-Also assumes java 8 and maven installed (for the moment).
+How this was accomplished (you'll note the source is in Java but you don't need Java installed to build it) is an excellent example of the power of command composition in action. Look inside the [build](build) file and the [/compiler](/compiler) directory to see how it works.
+
 
 1. clone this project
 2. ./build
-3. edit your .bash_profie (or equivalent) and append the following:
+3. edit your .bash_profile (or equivalent) and append the following:
 ```
 alias command-composer='docker run -it --rm -w="${PWD}" -e "HOME=${HOME}" -v "${PWD}:${PWD}" command-composer'
 ```
@@ -149,7 +150,7 @@ Usage: command-composer [options] command-name[:container-command-name] [image-n
 5. Submit a pull request :D
 
 ## TODO
-- Get rid of java/maven build dependancies (use docker images)
+- ~~Get rid of java/maven build dependancies (use docker images)~~ FIXED (we are now self-hosting)
 - Currently assumes stateless commands. Add capability for stateful commands
 - Support for exposing ports
 - Support for 'hot' commands where the docker container is left running to improve performance
