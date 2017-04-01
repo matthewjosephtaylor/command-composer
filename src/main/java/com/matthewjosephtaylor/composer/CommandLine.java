@@ -1,4 +1,4 @@
-package com.matthewjosephtaylor;
+package com.matthewjosephtaylor.composer;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.matthewjosephtaylor.composer.values.CompositionGroup;
 
 public class CommandLine {
 	public static final String DEFAULT_YAML_FILE = "command-compose.yml";

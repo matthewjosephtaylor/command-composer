@@ -1,9 +1,9 @@
 package com.matthewjosephtaylor;
 
-import static com.matthewjosephtaylor.CompositionGroup.DEFAULT_COMMAND_TYPE;
-import static com.matthewjosephtaylor.CompositionGroup.DEFAULT_EXECUTABLES_DIR;
-import static com.matthewjosephtaylor.CompositionGroup.DEFAULT_NAME;
-import static com.matthewjosephtaylor.CompositionGroup.DEFAULT_PERSIST;
+import static com.matthewjosephtaylor.composer.values.CompositionGroup.DEFAULT_COMMAND_TYPE;
+import static com.matthewjosephtaylor.composer.values.CompositionGroup.DEFAULT_EXECUTABLES_DIR;
+import static com.matthewjosephtaylor.composer.values.CompositionGroup.DEFAULT_NAME;
+import static com.matthewjosephtaylor.composer.values.CompositionGroup.DEFAULT_PERSIST;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -16,6 +16,10 @@ import org.junit.Test;
 
 import com.esotericsoftware.yamlbeans.YamlException;
 import com.google.common.collect.ImmutableList;
+import com.matthewjosephtaylor.composer.CommandLine;
+import com.matthewjosephtaylor.composer.parsers.YamlParser;
+import com.matthewjosephtaylor.composer.values.CommandMapping;
+import com.matthewjosephtaylor.composer.values.CompositionGroup;
 
 public class CommandsTests {
 

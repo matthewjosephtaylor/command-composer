@@ -1,4 +1,4 @@
-package com.matthewjosephtaylor;
+package com.matthewjosephtaylor.composer.values;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

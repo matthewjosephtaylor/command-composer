@@ -1,4 +1,4 @@
-package com.matthewjosephtaylor;
+package com.matthewjosephtaylor.composer.parsers;
 
 import java.io.FileReader;
 import java.util.List;
@@ -9,7 +9,10 @@ import java.util.stream.Collectors;
 
 import com.esotericsoftware.yamlbeans.YamlException;
 import com.esotericsoftware.yamlbeans.YamlReader;
-import com.matthewjosephtaylor.CompositionGroup.CommandType;
+import com.matthewjosephtaylor.composer.CommandLine;
+import com.matthewjosephtaylor.composer.values.CommandMapping;
+import com.matthewjosephtaylor.composer.values.CompositionGroup;
+import com.matthewjosephtaylor.composer.values.CompositionGroup.CommandType;
 
 public class YamlParser {
 

@@ -1,4 +1,4 @@
-package com.matthewjosephtaylor;
+package com.matthewjosephtaylor.composer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,7 +10,10 @@ import java.util.function.UnaryOperator;
 import org.apache.log4j.Logger;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
-import com.matthewjosephtaylor.CompositionGroup.CommandType;
+import com.matthewjosephtaylor.composer.parsers.CommandLineParser;
+import com.matthewjosephtaylor.composer.parsers.YamlParser;
+import com.matthewjosephtaylor.composer.values.CompositionGroup;
+import com.matthewjosephtaylor.composer.values.CompositionGroup.CommandType;
 
 public class Main {
 	private static final Logger logger = Logger.getLogger(Main.class);

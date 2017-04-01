@@ -1,4 +1,4 @@
-package com.matthewjosephtaylor;
+package com.matthewjosephtaylor.composer.parsers;
 
 import java.util.List;
 import java.util.Map;
@@ -8,7 +8,10 @@ import java.util.stream.Collectors;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.matthewjosephtaylor.CompositionGroup.CommandType;
+import com.matthewjosephtaylor.composer.CommandLine;
+import com.matthewjosephtaylor.composer.values.CommandMapping;
+import com.matthewjosephtaylor.composer.values.CompositionGroup;
+import com.matthewjosephtaylor.composer.values.CompositionGroup.CommandType;
 
 public class CommandLineParser {
 

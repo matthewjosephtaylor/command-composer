@@ -1,4 +1,4 @@
-package com.matthewjosephtaylor;
+package com.matthewjosephtaylor.composer.values;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,6 +16,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.google.common.collect.ImmutableList;
+import com.matthewjosephtaylor.composer.parsers.YamlParser;
 
 public class CommandMapping {
 	public enum SpecialCanSee {

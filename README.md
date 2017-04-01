@@ -156,6 +156,7 @@ Usage: command-composer [options] command-name[:container-command-name] [image-n
 - Support for 'hot' commands where the docker container is left running to improve performance
 - Environments are clobbered every time they are persisted.  
 Would be nice if it was easier to update environment from command line for aliases.
+- Currently only STDIO and filesystem interaction between commands is composable. It would be nice to have deeper IPC via shadowing system calls. This is a hard problem, and to do cleanly without touching docker images would most likely require some changes to docker itself.
 
 ## History
 
