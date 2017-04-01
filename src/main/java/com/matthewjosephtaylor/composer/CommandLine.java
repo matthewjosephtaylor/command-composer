@@ -34,14 +34,16 @@ public class CommandLine {
 			+ CompositionGroup.DEFAULT_EXECUTABLES_DIR + "). Setting this will force --executables")
 	public String outputDirectory;
 
-	@Parameter(names = { "-p",
-			"--persist" }, description = "Persist composition to default envornment in current working directory named "
+	@Parameter(names = { "--persist" }, description = "Persist composition to default envornment in current working directory named "
 					+ CompositionGroup.DEFAULT_NAME)
 	public Boolean persist;
 
 	@Parameter(names = { "-n",
 			"--name" }, description = "Name of envionment (default: .command-commpose). Setting this will force --persist")
 	public String name;
+
+	@Parameter(names = { "-p", "--ports" }, description = "Comma seperated list of ports to expose")
+	public String ports;
 
 	private CommandLine() {
 	}

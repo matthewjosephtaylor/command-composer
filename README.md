@@ -92,27 +92,37 @@ Pretty much everything in the yaml file is optional with reasonable defaults.
 
 ## Yaml Documentation
 
+
+- also-see
+  - absolute path to directory (careful, if you use something like `/` or `/usr/bin` things will likely break)
+
+
 - can-see
   -  HOME = only home directory
   -  CWD = (default) only current working directory
   -  NOTHING = can't see any host directories
   -  -X = only X directories up from current working directory (-0 would be the same as CWD, -1 would be one directory up from CWD, ...)
 
-- also-see
-  - absolute path to a directory outside of the user's home directory (careful, if you use something like `/` or `/usr/bin` things will likely break)
-
-- persist
-  - save an environment file that can be sourced into a shell via `source .name` (default name is `.composed-commands`)
-
-- executables-dir
-  - directory to save executable commands that link to docker commands (as apposed to shell aliases) that can be put in a PATH or executed outside of a shell environment.
 
 - command-type
   - ALIAS = environment to use shell aliases
   - EXECUTABLE = environment to use executable commands
+
+
+- executables-dir
+  - directory to save executable commands that link to docker commands (as apposed to shell aliases) that can be put in a PATH or executed outside of a shell environment.
+
+
 - name
   - name of the command group environment (used in the name of the environment file to be sourced)
 
+
+- persist
+  - save an environment file that can be sourced into a shell via `source .name` (default name is `.composed-commands`)
+
+
+- ports
+  - exposed ports (port inside container mapped to same port on host)
 
 ## Commandline Usage
 ```
@@ -128,9 +138,11 @@ Usage: command-composer [options] command-name[:container-command-name] [image-n
     -n, --name
       Name of envionment (default: .command-commpose). Setting this will force --persist
     -o, --out
-      Directory to output executable commands (default: .). Setting this will force --executables
-    -p, --persist
+      Directory to output executable commands (default: ./). Setting this will force --executables
+    --persist
       Persist composition to default envornment in current working directory named composed-commands
+    -p, --ports
+      Comma seperated list of ports to expose
     -v, --verbose
       Verbose output
       Default: false
@@ -152,16 +164,19 @@ Usage: command-composer [options] command-name[:container-command-name] [image-n
 ## TODO
 - ~~Get rid of java/maven build dependancies (use docker images)~~ FIXED (we are now self-hosting)
 - Currently assumes stateless commands. Add capability for stateful commands
-- Support for exposing ports
+- ~~Support for exposing ports~~ DONE
 - Support for 'hot' commands where the docker container is left running to improve performance
 - Environments are clobbered every time they are persisted.  
 Would be nice if it was easier to update environment from command line for aliases.
 - Currently only STDIO and filesystem interaction between commands is composable. It would be nice to have deeper IPC via shadowing system calls. This is a hard problem, and to do cleanly without touching docker images would most likely require some changes to docker itself.
+- Don't use static paths in environment 'dot' files
+- Use Jackson yaml parser
 
 ## History
 
 March 26 2017 : First upload to github after a weekend of coding.  There will be bugs... :)
 
+April 1 2017 : Cleaned up the code a bit, added ports.
 ## Credits
 - Thanks to the good folks at https://www.docker.com/ for creating such an awesome tool.
 - Me! https://twitter.com/matt_taylor

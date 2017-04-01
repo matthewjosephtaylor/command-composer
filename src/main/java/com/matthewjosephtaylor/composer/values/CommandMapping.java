@@ -40,15 +40,19 @@ public class CommandMapping {
 	public final boolean stateful;
 	public static final String IMAGE = "image";
 	public final String imageName;
+	public static final String PORTS = "ports";
+	public final ImmutableList<String> ports;
 
 	public CommandMapping(final String hostCommandName, final String containerCommandName, final String canSee,
-			final Iterable<String> alsoSee, final boolean stateful, final String imageName) {
+			final Iterable<String> alsoSee, final boolean stateful, final String imageName,
+			final Iterable<String> ports) {
 		this.hostCommandName = hostCommandName;
 		this.containerCommandName = containerCommandName;
 		this.canSee = canSee;
 		this.alsoSee = ImmutableList.copyOf(alsoSee);
 		this.stateful = stateful;
 		this.imageName = imageName;
+		this.ports = ImmutableList.copyOf(ports);
 	}
 
 	public CommandMapping(final String hostCommandName, final Map<String, ? super Object> mappingValues) {
@@ -59,9 +63,10 @@ public class CommandMapping {
 				.copyOf((Iterable<String>) mappingValues.getOrDefault(ALSO_SEE, Collections.emptyList()));
 		stateful = YamlParser.toBoolean(mappingValues.getOrDefault(STATEFUL, Boolean.FALSE));
 		imageName = (String) mappingValues.getOrDefault(IMAGE, hostCommandName);
+		ports = ImmutableList
+				.copyOf((Iterable<String>) mappingValues.getOrDefault(PORTS, Collections.emptyList()));
+
 	}
-
-
 
 	//docker run -i -w="${HOST_CWD}" -e "HOME=${HOME}" --mac-address="${MAC_ADDR}" -v "${HOME}:${HOME}" "${IMAGE_NAME}" $@
 	private static String DOCKER_RUN = "docker run -it --rm -w=\"${PWD}\" -e \"HOME=${HOME}\" %s \"%s\" %s";
@@ -87,19 +92,25 @@ public class CommandMapping {
 		if (stateful) {
 			throw new UnsupportedOperationException("Stateful support not yet implmented.");
 		} else {
-			result = String.format(DOCKER_RUN, createDockerVolumeParameters(canSee, alsoSee), imageName,
+			result = String.format(DOCKER_RUN, createDockerParameters(canSee, alsoSee, ports), imageName,
 					containerCommandName);
 		}
 		return result;
 	}
 
-	private static String createDockerVolumeParameters(final String canSee, final List<String> alsoSee) {
-		return Stream.of(createCanSeeVolumeParameter(canSee), createAlsoSeeValueParameter(alsoSee))
+	private static String createDockerParameters(final String canSee, final List<String> alsoSee,
+			final List<String> ports) {
+		return Stream.of(createCanSeeVolumeParameter(canSee), createAlsoSeeValueParameter(alsoSee),
+				createPortsValueParameter(ports))
 				.collect(Collectors.joining(" "));
 	}
 
 	private static String createAlsoSeeValueParameter(final List<String> alsoSee) {
 		return alsoSee.stream().map(as -> String.format("-v \"%s:%s\"", as, as)).collect(Collectors.joining(" "));
+	}
+
+	private static String createPortsValueParameter(final List<String> ports) {
+		return ports.stream().map(as -> String.format("-p \"%s:%s\"", as, as)).collect(Collectors.joining(" "));
 	}
 
 	private static String createCanSeeVolumeParameter(final String canSee) {
@@ -135,8 +146,7 @@ public class CommandMapping {
 		}
 		return result;
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this, false);
@@ -146,11 +156,10 @@ public class CommandMapping {
 	public boolean equals(final Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj, false);
 	}
-	
+
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
-
 
 }

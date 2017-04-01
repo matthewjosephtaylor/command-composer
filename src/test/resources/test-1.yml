@@ -13,3 +13,6 @@ commands:
   yarn:
     can-see: HOME
     image: "my-special-yarn-image:latest"
+    ports:
+        - "123"
+        - "456"

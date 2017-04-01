@@ -29,17 +29,21 @@ public class CommandLineParser {
 		final CommandType commandType = commandLine.executables
 				|| Optional.ofNullable(commandLine.outputDirectory).isPresent() ? CommandType.EXECUTABLE
 						: CommandType.ALIAS;
+		
+		final Iterable<String> ports = Splitter.on(",").split(Optional.ofNullable(commandLine.ports).orElse(""));
 
 		return new CompositionGroup(name, executablesDir, commandType, persist,
-				Lists.newArrayList((parseUnparsedArguments(commandLine.unparsedArguments))));
+				Lists.newArrayList((parseUnparsedArguments(ports, commandLine.unparsedArguments))));
 	}
 
-	private static CommandMapping parseUnparsedArguments(final List<String> unparsedArguments) {
+	private static CommandMapping parseUnparsedArguments(final Iterable<String> ports, final List<String> unparsedArguments) {
 
 		if ((unparsedArguments == null) || unparsedArguments.isEmpty()) {
 			throw new RuntimeException("Unable to determine command name");
 		}
 		final Map<String, ? super Object> mappingValues = Maps.newHashMap();
+		
+		mappingValues.put(CommandMapping.PORTS, ports);
 
 		final List<String> splitFirstArgument = Splitter.on(":").splitToList(unparsedArguments.get(0));
 		final String hostCommandName = splitFirstArgument.get(0);
